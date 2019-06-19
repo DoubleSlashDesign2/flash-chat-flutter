@@ -28,11 +28,28 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     animation = new CurvedAnimation(parent: controller, curve: Curves.easeIn);
 
     controller.forward();
+    //controller.reverse(from: 1.0);
+
+    //AnimationStatus.completed - on forward
+    //AnimationStatus.dismissed - on reverse
+
+    controller.addStatusListener((status) {
+      if (status == AnimationStatus.completed)
+        controller.reverse(from: 1.0);
+      else if (status == AnimationStatus.dismissed) controller.forward();
+    });
+
     controller.addListener(() {
       setState(
           () {}); // force Widget(build() to be called to update and show our animation)
       print(animation.value);
     });
+  }
+  @override
+  void dispose() {
+    // overide dispose and place contollers and anmations inside to kill because the remain
+    controller.dispose(); 
+    super.dispose();
   }
 
   @override
@@ -51,7 +68,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   tag: 'logo',
                   child: Container(
                     child: Image.asset('images/logo.png'),
-                    height: animation.value*100,
+                    height: animation.value * 100,
                   ),
                 ),
                 Text(
