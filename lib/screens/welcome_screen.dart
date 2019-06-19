@@ -4,17 +4,39 @@ import 'package:flash_chat/screens/login_screen.dart';
 import 'package:flash_chat/screens/registration_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
-static const String id = 'welcome_screen';
+  static const String id = 'welcome_screen';
 
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> {
+class _WelcomeScreenState extends State<WelcomeScreen>
+    with SingleTickerProviderStateMixin {
+  AnimationController controller;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    controller = new AnimationController(
+        duration: Duration(seconds: 1),
+        vsync:
+            this, // Using this keyword states that we are pointing back to the welcomeScreenState
+        );
+
+    controller.forward();
+    controller.addListener(() {
+      setState(
+          () {}); // force Widget(build() to be called to update and show our animation)
+      print(controller.value);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.red.withOpacity(controller.value),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
@@ -23,8 +45,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Hero(tag: 'logo',
-                    child: Container( 
+                Hero(
+                  tag: 'logo',
+                  child: Container(
                     child: Image.asset('images/logo.png'),
                     height: 60.0,
                   ),
