@@ -6,6 +6,17 @@ https://pub.dev/packages/firebase_core#-changelog-tab-
 https://pub.dev/packages/cloud_firestore#-installing-tab-
 https://pub.dev/packages/firebase_auth#-installing-tab-
 
+
+Azure and Flutter
+https://stackoverflow.com/questions/55116271/how-to-integrate-azure-ad-sso-in-flutter-app
+https://www.reddit.com/r/FlutterDev/comments/9g393t/using_azure_app_services_with_flutter/
+https://pub.dev/packages/aad_oauth
+
+
+Flutter Rest and SQFlite
+https://medium.com/@kashifmin/flutter-login-app-using-rest-api-and-sqflite-b4815aed2149
+
+
 ![App Brewery Banner](https://github.com/londonappbrewery/Images/blob/master/AppBreweryBanner.png)
 
 
