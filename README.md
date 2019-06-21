@@ -1,3 +1,11 @@
+
+https://console.firebase.google.com/?pli=1
+https://github.com/flutter/plugins/blob/master/FlutterFire.md
+
+https://pub.dev/packages/firebase_core#-changelog-tab-
+https://pub.dev/packages/cloud_firestore#-installing-tab-
+https://pub.dev/packages/firebase_auth#-installing-tab-
+
 ![App Brewery Banner](https://github.com/londonappbrewery/Images/blob/master/AppBreweryBanner.png)
 
 
