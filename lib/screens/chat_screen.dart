@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flash_chat/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class ChatScreen extends StatefulWidget {
   static const String id = 'chat_screen';
@@ -40,7 +41,12 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
               icon: Icon(Icons.close),
               onPressed: () {
-                //Implement logout functionality
+                try {
+                  _auth.signOut();
+                  Navigator.pop(context);
+                } catch (e) {
+                  print(e);
+                }
               }),
         ],
         title: Text('⚡️Chat'),
@@ -58,14 +64,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
-                      onChanged: (value) {
-                        try {
-                           _auth.signOut();
-                          Navigator.pop(context);
-                        } catch (e) {
-                          print(e);
-                        }
-                      },
+                      onChanged: (value) {},
                       decoration: kMessageTextFieldDecoration,
                     ),
                   ),
