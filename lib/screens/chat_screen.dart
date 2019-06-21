@@ -36,22 +36,20 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  void getMessages() async {
-    final messages = await _fireStore.collection('messages').getDocuments();
+  // void getMessages() async {
+  //   final messages = await _fireStore.collection('messages').getDocuments();
 
-    for (var message in messages.documents) {
-      print(message.data);
+  //   for (var message in messages.documents) {
+  //     print(message.data);
+  //   }
+  // }
+
+  void getMessageStream() async {
+    await for (var snapShot in _fireStore.collection('messages').snapshots()) {
+      for (var message in snapShot.documents) {
+        print(message.data);
+      }
     }
-
-    // try {
-    //   final user = await _auth.currentUser();
-    //   if (user != null) {
-    //     loggedInUser = user;
-    //     print('logged in user is ' + loggedInUser.email);
-    //   }
-    // } catch (e) {
-    //   print(e);
-    // }
   }
 
   @override
@@ -63,7 +61,8 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
               icon: Icon(Icons.close),
               onPressed: () {
-                getMessages();
+                // getMessages();
+                getMessageStream();
                 // try {
                 //   _auth.signOut();
                 //   Navigator.pop(context);
