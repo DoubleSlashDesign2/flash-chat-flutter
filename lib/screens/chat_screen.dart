@@ -47,13 +47,13 @@ class _ChatScreenState extends State<ChatScreen> {
   //   }
   // }
 
-  void messageStream() async {
-    await for (var snapShot in _fireStore.collection('messages').snapshots()) {
-      for (var message in snapShot.documents) {
-        print(message.data);
-      }
-    }
-  }
+  // void messageStream() async {
+  //   await for (var snapShot in _fireStore.collection('messages').snapshots()) {
+  //     for (var message in snapShot.documents) {
+  //       print(message.data);
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,7 @@ class _ChatScreenState extends State<ChatScreen> {
               icon: Icon(Icons.close),
               onPressed: () {
                 // getMessages();
-                messageStream();
+                // messageStream();
                 // try {
                 //   _auth.signOut();
                 //   Navigator.pop(context);
@@ -135,7 +135,9 @@ class MessagesStream extends StatelessWidget {
           );
         }
         // if (snapshot.hasData) {
-        final messages = snapshot.data.documents;
+        // reverse data in list from database
+        final messages = snapshot.data.documents.reversed;
+
         List<MessageBubble> messageBubbles = [];
         for (var message in messages) {
           final messageText = message.data['text'];
@@ -154,6 +156,7 @@ class MessagesStream extends StatelessWidget {
         }
         return Expanded(
           child: ListView(
+            reverse: true,
             padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
             children: messageBubbles,
           ),
