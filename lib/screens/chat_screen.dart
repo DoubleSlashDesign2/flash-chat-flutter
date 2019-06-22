@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flash_chat/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-//import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -44,7 +44,7 @@ class _ChatScreenState extends State<ChatScreen> {
   //   }
   // }
 
-  void getMessageStream() async {
+  void messageStream() async {
     await for (var snapShot in _fireStore.collection('messages').snapshots()) {
       for (var message in snapShot.documents) {
         print(message.data);
@@ -62,7 +62,7 @@ class _ChatScreenState extends State<ChatScreen> {
               icon: Icon(Icons.close),
               onPressed: () {
                 // getMessages();
-                getMessageStream();
+                messageStream();
                 // try {
                 //   _auth.signOut();
                 //   Navigator.pop(context);
@@ -79,6 +79,31 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            StreamBuilder<QuerySnapshot>(
+              stream: _fireStore.collection('messages').snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                        backgroundColor: Colors.lightBlueAccent),
+                  );
+                }
+                // if (snapshot.hasData) {
+                final messages = snapshot.data.documents;
+                List<Text> messageWidgets = [];
+                for (var message in messages) {
+                  final messageText = message.data['text'];
+                  final messageSender = message.data['sender'];
+                  final messageWidget = Text('$messageText from $messageSender',
+                      style: TextStyle(fontSize: 20.0));
+                  messageWidgets.add(messageWidget);
+                  // }
+                  return Column(
+                    children: messageWidgets,
+                  );
+                }
+              },
+            ),
             Container(
               decoration: kMessageContainerDecoration,
               child: Row(
