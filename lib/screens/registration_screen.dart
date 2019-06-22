@@ -14,10 +14,10 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
 // using the underscore in Dart make the property private
-final _auth = FirebaseAuth.instance;
-String email;
-String password;
-bool _showSpinner = false;
+  final _auth = FirebaseAuth.instance;
+  String email;
+  String password;
+  bool _showSpinner = false;
 
   @override
   Widget build(BuildContext context) {
@@ -25,26 +25,28 @@ bool _showSpinner = false;
       backgroundColor: Colors.white,
       body: ModalProgressHUD(
         inAsyncCall: _showSpinner,
-              child: Padding(
+        child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Hero(
-                tag: 'logo',
-                child: Container(
-                  height: 100.0,
-                  child: Image.asset('images/logo.png'),
+              Flexible(
+                child: Hero(
+                  tag: 'logo',
+                  child: Container(
+                    height: 200.0,
+                    child: Image.asset('images/logo.png'),
+                  ),
                 ),
               ),
               SizedBox(
                 height: 48.0,
               ),
               TextField(
-                keyboardType: TextInputType.emailAddress,
-                textAlign: TextAlign.center,
-                  onChanged: (value) {                  
+                  keyboardType: TextInputType.emailAddress,
+                  textAlign: TextAlign.center,
+                  onChanged: (value) {
                     email = value;
                   },
                   style: TextStyle(
@@ -57,8 +59,8 @@ bool _showSpinner = false;
                 height: 8.0,
               ),
               TextField(
-                obscureText: true,
-                 textAlign: TextAlign.center,
+                  obscureText: true,
+                  textAlign: TextAlign.center,
                   onChanged: (value) {
                     password = value;
                   },
@@ -71,24 +73,23 @@ bool _showSpinner = false;
                   title: 'Register',
                   color: Colors.blueAccent,
                   onPressed: () async {
-                    setState((){
+                    setState(() {
                       _showSpinner = true;
                     });
-                    
+
                     print('email' + email);
                     print('password' + password);
-                    try{
-                      final newUser = await _auth.createUserWithEmailAndPassword(email: email,password: password);
-                      if(newUser != null)
-                      {
+                    try {
+                      final newUser =
+                          await _auth.createUserWithEmailAndPassword(
+                              email: email, password: password);
+                      if (newUser != null) {
                         Navigator.pushNamed(context, ChatScreen.id);
                       }
-                    setState((){
-                      _showSpinner = false;
-                    });
-                    }
-                    catch(e)
-                    {
+                      setState(() {
+                        _showSpinner = false;
+                      });
+                    } catch (e) {
                       print(e);
                     }
                   }),

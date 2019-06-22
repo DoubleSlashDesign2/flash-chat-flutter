@@ -41,14 +41,13 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     //   else if (status == AnimationStatus.dismissed) controller.forward();
     // });
 
-    animation =
-        ColorTween(begin: Colors.blueGrey, end: Colors.white).animate(controller);
+    animation = ColorTween(begin: Colors.blueGrey, end: Colors.white)
+        .animate(controller);
     controller.forward();
 
     controller.addListener(() {
       setState(
           () {}); // force Widget(build() to be called to update and show our animation)
-      
     });
   }
 
@@ -71,14 +70,17 @@ class _WelcomeScreenState extends State<WelcomeScreen>
           children: <Widget>[
             Row(
               children: <Widget>[
-                Hero(
-                  tag: 'logo',
-                  child: Container(
-                    child: Image.asset('images/logo.png'),
-                    height: 60,
+                Flexible(
+                  child: Hero(
+                    tag: 'logo',
+                    child: Container(
+                      child: Image.asset('images/logo.png'),
+                      height: 60,
+                    ),
                   ),
                 ),
-                TypewriterAnimatedTextKit(text: ['Flash Chat'],
+                TypewriterAnimatedTextKit(
+                  text: ['Flash Chat'],
                   textStyle: TextStyle(
                     fontSize: 45.0,
                     fontWeight: FontWeight.w900,
@@ -89,12 +91,21 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             SizedBox(
               height: 48.0,
             ),
-            new RoundedButton(title: 'Login', color: Colors.lightBlueAccent,onPressed: () { Navigator.pushNamed(context, LoginScreen.id); }),
-            new RoundedButton(title: 'Register', color: Colors.blueAccent,onPressed: () { Navigator.pushNamed(context, RegistrationScreen.id); }),
+            new RoundedButton(
+                title: 'Login',
+                color: Colors.lightBlueAccent,
+                onPressed: () {
+                  Navigator.pushNamed(context, LoginScreen.id);
+                }),
+            new RoundedButton(
+                title: 'Register',
+                color: Colors.blueAccent,
+                onPressed: () {
+                  Navigator.pushNamed(context, RegistrationScreen.id);
+                }),
           ],
         ),
       ),
     );
   }
 }
-
